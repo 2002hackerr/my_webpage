@@ -485,7 +485,26 @@ section {
   animation: float-photo 3s ease-in-out infinite, pulse-halo 2s infinite alternate !important;
 }
 
+
+/* ENHANCED BEAUTY CSS */
+.msg-card {
+  box-shadow: 0 15px 50px rgba(255, 110, 138, 0.5), inset 0 0 20px rgba(255,255,255,0.2) !important;
+  border: 1px solid rgba(255,182,193,0.4) !important;
+  background: linear-gradient(135deg, rgba(255,182,193,0.1), rgba(255,182,193,0.05)) !important;
+  backdrop-filter: blur(15px) !important;
+  transform: translateY(0);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.msg-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 25px 60px rgba(255, 110, 138, 0.7), inset 0 0 30px rgba(255,255,255,0.3) !important;
+}
+.hero-name {
+  text-shadow: 0 0 20px rgba(255, 110, 138, 0.8), 0 0 40px rgba(255, 110, 138, 0.6) !important;
+  letter-spacing: 2px;
+}
 </style>
+
 </head>
 <body>
 
@@ -510,10 +529,10 @@ section {
     <span class="section-label">From the heart</span>
     <h2 class="msg-heading">Happy Birthday! 🎂</h2>
     <div class="msg-card">
-      <p>Before anything else — I owe you an apology. For the rude moments, the misunderstandings, for ever making you feel like you didn't matter to me. The truth is, you matter more than words can ever say.</p>
-      <p>You are one of the most important people in my life, and I never want you to doubt that — not even for a second. I may not always show it the right way, but my heart is always rooting for you.</p>
+      <p>Before anything else, I owe you an apology. For the rude moments, the misunderstandings, for ever making you feel like you didn't matter to me. The truth is, you matter more than words can ever say.</p>
+      <p>You are one of the most important people in my life, and I never want you to doubt that, not even for a second. I may not always show it the right way, but my heart is always rooting for you.</p>
       <p>I hope this birthday brings you all the happiness you so deeply deserve. I hope all your goals come true, one by one, and life gives you every beautiful thing you've ever wished for. 🌟</p>
-      <p>No matter where life takes us both, near or far — remember someone's always wishing on your star. Wishing you the most magical day! 💛</p>
+      <p>No matter where life takes us both, near or far, remember someone's always wishing on your star. Wishing you the most magical day! 💛</p>
     </div>
   </div>
 </section>
@@ -527,7 +546,7 @@ section {
     <blockquote class="poem-text">
       No matter where life takes us both, near or far,<br>
       Remember someone's always wishing on your star.<br>
-      Happy Birthday to someone truly rare —<br>
+      Happy Birthday to someone truly rare.—<br>
       A heart like yours is beyond compare.<br><br>
       May every dream you've quietly kept inside<br>
       Find wings this year and soar with gentle pride.<br>
@@ -701,5 +720,43 @@ sparkStyle.textContent = `@keyframes sparkFade {
 }`;
 document.head.appendChild(sparkStyle);
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script>
+window.onload = function() {
+  var duration = 15 * 1000;
+  var animationEnd = Date.now() + duration;
+  var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 10000 };
+
+  function randomInRange(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  var interval = setInterval(function() {
+    var timeLeft = animationEnd - Date.now();
+
+    if (timeLeft <= 0) {
+      return clearInterval(interval);
+    }
+
+    var particleCount = 50 * (timeLeft / duration);
+    confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+    confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+  }, 250);
+  
+  // Also add a gentle fade in for paragraphs
+  const paras = document.querySelectorAll('.msg-text p');
+  paras.forEach((p, i) => {
+    p.style.opacity = '0';
+    p.style.transform = 'translateY(20px)';
+    p.style.transition = 'all 1s ease ' + (i * 0.8 + 1) + 's';
+    setTimeout(() => {
+        p.style.opacity = '1';
+        p.style.transform = 'translateY(0)';
+    }, 100);
+  });
+};
+</script>
 </body>
+
 </html>
